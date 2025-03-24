@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    [v-cloak] {
+    display: none;
+  }
+  #app{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 200px;
+    font-size: 16px;
+  }
+  button,input{
+    margin: 20px 0;
+  }
+</style>
+</head>
+<body>
+  <script type="importmap">
+    {
+      "imports": {
+        "vue": "https://unpkg.com/vue@3/dist/vue.esm-browser.js",
+        "vue-worker": "../dist/useWorker.esm.js"
+      }
+    }
+  </script>
+  
+  <div id="app">
+    输入阶乘数：<input type="text"  v-model="num" />
+    <button @click="handleClick">计算阶乘</button>
+    <h1 v-cloak>阶乘结果是：{{ result }}</h1>
+  </div>
+  <script type="module">
+    import { createApp, ref } from 'vue'
+    import { useWorker } from 'vue-worker'
+    createApp({
+      setup() {
+        function factorial(n) {
+          if (n === 0 || n === 1) return 1;
+          return n * factorial(n - 1);
+        }
+        const [sortWorker] = useWorker(factorial);
+        const result = ref(0);
+        const num = ref(0)
+        const handleClick = async () => {
+          console.log(num.value,222);
+           result.value = await sortWorker(num.value); 
+          console.log(result.value);
+        };
+        return {
+          result,
+          num,
+          handleClick
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+</html>
