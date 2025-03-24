@@ -4,12 +4,16 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rollup -c`"
+    "build": "rollup -c"
   },
   "keywords": [],
   "author": "Zane Yu",
   "license": "ISC",
   "description": "",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llifangyin/vue3-useWorker"
+  },
   "dependencies": {
     "vue": "^3.5.13"
   },
