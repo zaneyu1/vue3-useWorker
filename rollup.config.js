@@ -1,11 +1,11 @@
 import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
 import typescript from '@rollup/plugin-typescript';
+import  terser from '@rollup/plugin-terser';
 
 export default {
-
     input: 'src/useWorker.ts',
-    output:[
+    output: [
         {
             file: 'dist/useWorker.js',
             format: 'cjs'
@@ -18,7 +18,8 @@ export default {
     plugins: [
         resolve(),
         commonjs(),
-        typescript()
+        typescript(),
+        terser() // 添加代码混淆插件
     ],
     external: ['vue']
 }
